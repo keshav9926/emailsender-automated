@@ -67,7 +67,7 @@ function getDefaultSettings() {
     },
     template: {
       subject: 'IIT Jodhpur | SWE/Backend + AI Intern — shipped full-stack production apps',
-      body: `Hi {name},\n\nQuick one — I'm Keshav, pre-final year B.Tech at IIT Jodhpur. I build backend systems and AI-powered products end to end.\n\nWhat I've shipped:\n→ REST APIs & microservices with Node.js / FastAPI (production-deployed)\n→ RAG pipeline + AI agent with LLM tool-calling on top of a backend I built\n→ Full-stack apps from database design to deployment — no hand-holding\n\nI'm comfortable across the stack but strongest in backend engineering and AI integration — the intersection most companies are actively hiring for right now.\n\nI'd love to explore any SWE, Backend, or AI/ML internship roles at {company}. Resume attached.\n\nIf there's a fit, even a 10-minute call works great.\n\nThanks,\nKeshav Kakani\nIIT Jodhpur | kkakani160@gmail.com`
+      body: `Hi {name},\n\nQuick one — I'm Keshav, pre-final year B.Tech at IIT Jodhpur. I build backend systems and AI-powered products end to end.\n\nWhat I've shipped:\n→ REST APIs & microservices with Node.js / FastAPI (production-deployed)\n→ RAG pipeline + AI agent with LLM tool-calling on top of a backend I built\n→ Full-stack apps from database design to deployment — no hand-holding\n\nI'm comfortable across the stack but strongest in backend engineering and AI integration — the intersection most companies are actively hiring for right now.\n\nI'd love to explore any SWE, Backend, or AI/ML internship roles at {company}. Resume attached.\n\nIf there's a fit, even a 10-minute call works great.\n\nThanks,\nKeshav Kakani\nkkakani160@gmail.com | +91 9024099116`
     },
     delay: 10000 // 10 seconds
   };
