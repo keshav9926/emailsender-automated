@@ -66,8 +66,8 @@ function getDefaultSettings() {
       senderEmail: ''
     },
     template: {
-      subject: 'IIT Jodhpur | SWE/Backend + AI Intern — shipped full-stack production apps',
-      body: `Hi {name},\n\nQuick one — I'm Keshav, pre-final year B.Tech at IIT Jodhpur. I build backend systems and AI-powered products end to end.\n\nWhat I've shipped:\n→ REST APIs & microservices with Node.js / FastAPI (production-deployed)\n→ RAG pipeline + AI agent with LLM tool-calling on top of a backend I built\n→ Full-stack apps from database design to deployment — no hand-holding\n\nI'm comfortable across the stack but strongest in backend engineering and AI integration — the intersection most companies are actively hiring for right now.\n\nI'd love to explore any SWE, Backend, or AI/ML internship roles at {company}. Resume attached.\n\nIf there's a fit, even a 10-minute call works great.\n\nThanks,\nKeshav Kakani\nkkakani160@gmail.com | +91 9024099116`
+      subject: 'SWE / Backend / AI-ML Intern Application — Keshav Kakani, IIT Jodhpur',
+      body: `Dear {name},\n\nI'm Keshav Kakani, a pre-final year B.Tech student at IIT Jodhpur with hands-on experience building backend systems and AI-powered products end to end. I'm currently an SDE Intern at UnitedTechlab, where I've worked on CI/CD automation, secure credential management on AWS, and authorization systems across 15+ production REST endpoints.\n\nBeyond my internship, I've built a production-grade MERN blogging platform with dual authentication and cloud-integrated uploads, a custom C++ chess engine with real-time Stockfish analysis over WebSockets, and a hybrid ML recommendation system combining XGBoost with content affinity modeling.\n\nI'm strongest at the intersection of backend engineering and AI integration, and I'd love to explore SWE, Backend, or AI/ML internship opportunities at {company}. Resume attached for more details.\n\nLooking forward to hearing from you.\n\nBest regards,\nKeshav Kakani\nIIT Jodhpur | kkakani160@gmail.com | +91 9024099116 | github.com/keshav9926`
     },
     delay: 10000 // 10 seconds
   };
