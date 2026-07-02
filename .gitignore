@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Local Configurations & Secrets
+settings.json
+contacts_status.json
+sending_logs.txt
+
+# Personal PDFs (Resumes & Contacts)
+*.pdf
+
+# Temporary Scripts & Text Extracts
+inspect_pdf.py
+pdf_sample.txt
+test_layout.py
+layout_sample.txt
+check_page2.py
+layout_page2.txt
+test_split.py
+parse_pdf.py

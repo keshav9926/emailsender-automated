@@ -62,12 +62,12 @@ function getDefaultSettings() {
       secure: false, // true for 465, false for other ports
       user: '',
       pass: '',
-      senderName: 'Your Name',
+      senderName: 'Keshav',
       senderEmail: ''
     },
     template: {
-      subject: 'Opportunity at {company}',
-      body: 'Hi {name},\n\nI noticed you are the {title} at {company}...'
+      subject: 'for seeking opportunities at your company :)',
+      body: `I'll keep this short\n\nI'm Keshav, an upcoming third-year B.Tech student at IIT Jodhpur.\n\nLately, I've been building production-ready AI applications using LLMs, RAG, AI agents, FastAPI/Node.js, and PyTorch. I enjoy taking ideas from scratch to fully deployed products, especially where AI and backend engineering come together.\n\nI have found your company interesting for me to work, so I've attached my resume. If you think I'd be a good fit for any AI/ML, GenAI, or AI Backend roles, I'd love to chat!\n\nThanks for your time, and have a great day!\n\nCheers,\nKeshav`
     },
     delay: 10000 // 10 seconds
   };
@@ -198,6 +198,17 @@ async function sendNextEmail() {
       subject: subject,
       [isHtml ? 'html' : 'text']: body
     };
+    
+    // Auto-detect and attach resume (10).pdf if it exists in current directory
+    const resumePath = path.join(__dirname, 'resume (10).pdf');
+    if (fs.existsSync(resumePath)) {
+      mailOptions.attachments = [
+        {
+          filename: 'Resume_Keshav_Kakani.pdf',
+          path: resumePath
+        }
+      ];
+    }
     
     await transporter.sendMail(mailOptions);
     
@@ -404,6 +415,17 @@ app.post('/api/test-connection', async (req, res) => {
       subject: 'Email Sender Automation Test Connection',
       text: `Hello!\n\nThis is a test email from your local PDF Email Sender application. Your SMTP settings are successfully configured and verified.\n\nDate: ${new Date().toLocaleString()}`
     };
+    
+    // Auto-detect and attach resume (10).pdf if it exists in current directory
+    const resumePath = path.join(__dirname, 'resume (10).pdf');
+    if (fs.existsSync(resumePath)) {
+      mailOptions.attachments = [
+        {
+          filename: 'Resume_Keshav_Kakani.pdf',
+          path: resumePath
+        }
+      ];
+    }
     
     const info = await transporter.sendMail(mailOptions);
     logMessage(`Test email sent successfully! MessageID: ${info.messageId}`);
