@@ -185,7 +185,8 @@ document.addEventListener('DOMContentLoaded', () => {
   smtpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const settings = { ...appState.settings };
+    // Deep clone to avoid mutating appState before server confirms
+    const settings = JSON.parse(JSON.stringify(appState.settings));
     
     settings.smtp.host = inputSmtpHost.value.trim();
     settings.smtp.port = parseInt(inputSmtpPort.value);
@@ -193,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Only capture password if it's not the masked placeholder
     const passwordVal = inputSmtpPass.value;
-    if (passwordVal !== '••••••••••••••••') {
+    if (passwordVal && passwordVal !== '••••••••••••••••') {
       settings.smtp.pass = passwordVal;
     }
     
@@ -223,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Save Template
   btnSaveTemplate.addEventListener('click', async () => {
-    const settings = { ...appState.settings };
+    const settings = JSON.parse(JSON.stringify(appState.settings));
     settings.template.subject = inputSubject.value.trim();
     settings.template.body = textareaBody.value;
     

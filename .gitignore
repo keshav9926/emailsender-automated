@@ -18,3 +18,4 @@ check_page2.py
 layout_page2.txt
 test_split.py
 parse_pdf.py
+send_test.js
