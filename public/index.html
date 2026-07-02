@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroSend - PDF Email Automator</title>
+  <!-- Google Fonts: Outfit (headings) & Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>
+        </div>
+        <h1>AeroSend</h1>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-target="screen-dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-target="screen-recipients">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Recipients</span>
+        </button>
+        <button class="nav-item" data-target="screen-template">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          <span>Email Template</span>
+        </button>
+        <button class="nav-item" data-target="screen-settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>SMTP Configuration</span>
+        </button>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="server-status-card">
+          <span class="status-indicator-dot" id="server-dot"></span>
+          <div>
+            <div class="status-label">Sender Status</div>
+            <div class="status-value" id="server-status-text">Stopped</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <header class="app-header">
+        <div class="header-title-area">
+          <h2 id="screen-title">Dashboard</h2>
+          <p id="screen-subtitle">Overview of your email outreach campaign</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-icon" id="reimport-pdf-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+            <span>Reload PDF Contacts</span>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Notification Toast -->
+      <div class="toast-container" id="toast-container"></div>
+      
+      <!-- SCREEN: Dashboard -->
+      <section class="screen active" id="screen-dashboard">
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3>Total Recipients</h3>
+              <p class="stat-number" id="stat-total">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3>Emails Sent</h3>
+              <p class="stat-number" id="stat-sent">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" x2="9" y1="9" y2="15"/><line x1="9" x2="15" y1="9" y2="15"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3>Failed Sends</h3>
+              <p class="stat-number" id="stat-failed">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-info">
+              <h3>Pending / Queue</h3>
+              <p class="stat-number" id="stat-pending">0</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Queue Controls Panel -->
+        <div class="panel queue-control-panel">
+          <div class="queue-header">
+            <h3>Queue Orchestrator</h3>
+            <div class="progress-container">
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="queue-progress-fill" style="width: 0%;"></div>
+              </div>
+              <span class="progress-percentage" id="queue-progress-text">0% Completed</span>
+            </div>
+          </div>
+          
+          <div class="queue-controls-wrapper">
+            <div class="control-buttons">
+              <button class="btn btn-primary btn-large btn-glow" id="ctrl-start">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Start Automation</span>
+              </button>
+              <button class="btn btn-warning btn-large" id="ctrl-pause" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>
+                <span>Pause</span>
+              </button>
+              <button class="btn btn-danger" id="ctrl-reset">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+                <span>Reset Progress</span>
+              </button>
+            </div>
+            
+            <div class="delay-slider-container">
+              <div class="slider-header">
+                <label for="delay-slider">Intelligent Delay Interval</label>
+                <span class="slider-val-badge" id="delay-value-badge">10s</span>
+              </div>
+              <input type="range" id="delay-slider" min="3" max="120" value="10" class="styled-slider">
+              <p class="slider-tip">Tip: Delays of 10s+ help prevent Gmail/SMTP accounts from getting flag-blocked for bulk outreach spamming.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Live Terminal Log -->
+        <div class="panel log-panel">
+          <div class="panel-header">
+            <h3>Live Activity Ledger</h3>
+            <span class="pulse-indicator-label" id="activity-pulse-label">Listening...</span>
+          </div>
+          <div class="terminal-container" id="terminal-logs">
+            <div class="terminal-line system-line">[SYSTEM] Initialize AeroSend queue monitor...</div>
+            <div class="terminal-line system-line">[SYSTEM] Ready to send. Verify SMTP settings and click "Start Automation" to begin.</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SCREEN: Recipients -->
+      <section class="screen" id="screen-recipients">
+        <div class="panel table-panel">
+          <!-- Table Controls -->
+          <div class="table-header-filters">
+            <div class="search-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+              <input type="text" id="recipient-search" placeholder="Search name, company, title or email...">
+            </div>
+            
+            <div class="filter-group">
+              <select id="recipient-filter-status" class="styled-select">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="sent">Sent Successfully</option>
+                <option value="failed">Failed</option>
+                <option value="skipped">Skipped</option>
+                <option value="sending">Sending</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Recipients Table -->
+          <div class="table-responsive">
+            <table class="recipients-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">SNo</th>
+                  <th>Contact Details</th>
+                  <th>Title & Company</th>
+                  <th style="width: 130px;">Status</th>
+                  <th style="width: 100px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recipients-tbody">
+                <!-- Javascript will load table contents here -->
+                <tr class="table-loading-row">
+                  <td colspan="5">
+                    <div class="skeleton-loader">Loading recipients data...</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Table Footer Pagination -->
+          <div class="table-footer">
+            <div class="pagination-info">
+              Showing <span id="pagination-start">0</span> to <span id="pagination-end">0</span> of <span id="pagination-total">0</span> entries
+            </div>
+            <div class="pagination-controls">
+              <button class="btn btn-small btn-secondary" id="page-prev">Prev</button>
+              <div class="page-numbers-container" id="page-numbers">
+                <!-- Dynamic buttons -->
+              </div>
+              <button class="btn btn-small btn-secondary" id="page-next">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SCREEN: Email Template -->
+      <section class="screen" id="screen-template">
+        <div class="template-grid">
+          <!-- Editor Column -->
+          <div class="panel editor-panel">
+            <h3>Campaign Email Template</h3>
+            <p class="panel-desc">Design your outreach message. You can use HTML tags for formatting if desired.</p>
+            
+            <div class="form-group">
+              <label for="template-subject">Email Subject Header</label>
+              <input type="text" id="template-subject" class="styled-input" placeholder="e.g. Opportunity at {company}">
+            </div>
+            
+            <div class="form-group">
+              <div class="body-label-header">
+                <label for="template-body">Email Body Content</label>
+                <div class="tag-helper-buttons">
+                  <button class="tag-btn" data-tag="{name}">{name}</button>
+                  <button class="tag-btn" data-tag="{company}">{company}</button>
+                  <button class="tag-btn" data-tag="{title}">{title}</button>
+                  <button class="tag-btn" data-tag="{email}">{email}</button>
+                </div>
+              </div>
+              <textarea id="template-body" class="styled-textarea" rows="14" placeholder="Hi {name},\n\nI saw that you are the {title} at {company}..."></textarea>
+            </div>
+            
+            <div class="form-actions">
+              <button class="btn btn-primary" id="save-template-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>Save Template</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Live Preview Column -->
+          <div class="panel preview-panel">
+            <div class="preview-header">
+              <h3>Real-time Preview</h3>
+              <div class="preview-recipient-selector">
+                <button class="preview-nav-btn" id="prev-preview-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <span class="preview-idx-label" id="preview-recipient-label">Recipient #1</span>
+                <button class="preview-nav-btn" id="next-preview-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="preview-letterbox">
+              <div class="preview-meta">
+                <div class="meta-row">
+                  <span class="meta-label">To:</span>
+                  <span class="meta-val" id="preview-to-email">name@company.com</span>
+                </div>
+                <div class="meta-row">
+                  <span class="meta-label">Subject:</span>
+                  <span class="meta-val" id="preview-subject">Subject Preview</span>
+                </div>
+              </div>
+              <div class="preview-body" id="preview-body-content">
+                <!-- Compiled text loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SCREEN: SMTP Configuration -->
+      <section class="screen" id="screen-settings">
+        <div class="settings-grid">
+          <!-- SMTP Form Panel -->
+          <div class="panel smtp-config-panel">
+            <h3>SMTP Mail Server Details</h3>
+            <p class="panel-desc">Configure the outbound SMTP mail server. For Gmail, use an <strong>App Password</strong> instead of your regular password.</p>
+            
+            <form id="smtp-settings-form">
+              <div class="form-row">
+                <div class="form-group col-8">
+                  <label for="smtp-host">SMTP Host Server</label>
+                  <input type="text" id="smtp-host" class="styled-input" placeholder="e.g. smtp.gmail.com" required>
+                </div>
+                <div class="form-group col-4">
+                  <label for="smtp-port">Port</label>
+                  <input type="number" id="smtp-port" class="styled-input" placeholder="587" required>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label for="smtp-user">SMTP Username / Email</label>
+                  <input type="text" id="smtp-user" class="styled-input" placeholder="your_email@gmail.com" required>
+                </div>
+                <div class="form-group col-6">
+                  <label for="smtp-pass">SMTP Password / App Key</label>
+                  <div class="password-input-wrapper">
+                    <input type="password" id="smtp-pass" class="styled-input" placeholder="••••••••••••••••" required>
+                    <button type="button" class="btn-toggle-password" id="toggle-smtp-pass">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-open"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label for="smtp-sender-name">Friendly Sender Name</label>
+                  <input type="text" id="smtp-sender-name" class="styled-input" placeholder="e.g. John Doe">
+                </div>
+                <div class="form-group col-6">
+                  <label for="smtp-sender-email">Reply-to / Sender Email Address (Optional)</label>
+                  <input type="email" id="smtp-sender-email" class="styled-input" placeholder="Default: Same as Username">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label>Connection Protocol Security</label>
+                <div class="radio-group">
+                  <label class="radio-label">
+                    <input type="radio" name="smtp-secure" value="false" checked>
+                    <span>STARTTLS (Port 587 / 25)</span>
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="smtp-secure" value="true">
+                    <span>SSL/TLS Secure connection (Port 465)</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  <span>Save Configuration</span>
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Test Connection Console Panel -->
+          <div class="panel smtp-test-panel">
+            <h3>Diagnostic SMTP Connection Verification</h3>
+            <p class="panel-desc">Verify your mail settings with a quick test run before beginning the campaign.</p>
+            
+            <div class="form-group">
+              <label for="test-email-recipient">Test Recipient Email Address</label>
+              <input type="email" id="test-email-recipient" class="styled-input" placeholder="your_personal_email@example.com">
+            </div>
+            
+            <button class="btn btn-secondary btn-full" id="run-smtp-test-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              <span>Transmit Test Email</span>
+            </button>
+            
+            <div class="test-terminal" id="test-terminal">
+              <div class="terminal-line">[SYSTEM] SMTP Diagnostics Idle. Fill SMTP settings, add a test recipient, and click "Transmit Test Email".</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+  </div>
+</body>
+</html>
