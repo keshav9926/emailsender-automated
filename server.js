@@ -142,12 +142,16 @@ function createTransporter(smtpSettings) {
 // Template compiler
 function compileTemplate(text, contact) {
   if (!text) return '';
+  const name    = (contact.name    && contact.name.trim())    ? contact.name.trim()    : 'there';
+  const company = (contact.company && contact.company.trim()) ? contact.company.trim() : 'your organization';
+  const title   = (contact.title   && contact.title.trim())   ? contact.title.trim()   : '';
+  const email   = (contact.email   && contact.email.trim())   ? contact.email.trim()   : '';
   return text
-    .replace(/{name}/gi, contact.name || '')
-    .replace(/{email}/gi, contact.email || '')
-    .replace(/{title}/gi, contact.title || '')
-    .replace(/{company}/gi, contact.company || '')
-    .replace(/{sno}/gi, contact.sno || '');
+    .replace(/{name}/gi,    name)
+    .replace(/{company}/gi, company)
+    .replace(/{title}/gi,   title)
+    .replace(/{email}/gi,   email)
+    .replace(/{sno}/gi,     contact.sno || '');
 }
 
 // Queue sending process
