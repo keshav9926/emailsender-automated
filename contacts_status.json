@@ -2527,8 +2527,8 @@
     "company": "Inventive IT",
     "isValidEmail": true,
     "page": 7,
-    "status": "sending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:20:25.243Z",
     "error": null
   },
   {
@@ -2539,8 +2539,8 @@
     "company": "Netwoven",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:20:47.147Z",
     "error": null
   },
   {
@@ -2551,8 +2551,8 @@
     "company": "Abjayon",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:21:03.905Z",
     "error": null
   },
   {
@@ -2563,8 +2563,8 @@
     "company": "Smart IMS",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:21:21.555Z",
     "error": null
   },
   {
@@ -2575,8 +2575,8 @@
     "company": "Polygon",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:21:38.954Z",
     "error": null
   },
   {
@@ -2587,8 +2587,8 @@
     "company": "HAL",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:21:58.751Z",
     "error": null
   },
   {
@@ -2599,8 +2599,8 @@
     "company": "NEC Software Solutions",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:22:20.698Z",
     "error": null
   },
   {
@@ -2611,8 +2611,8 @@
     "company": "Interra Systems",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:22:40.381Z",
     "error": null
   },
   {
@@ -2623,8 +2623,8 @@
     "company": "Mysense Technologies",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:22:56.934Z",
     "error": null
   },
   {
@@ -2635,8 +2635,8 @@
     "company": "sa.global",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:23:20.186Z",
     "error": null
   },
   {
@@ -2647,8 +2647,8 @@
     "company": "Moolya",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:23:40.610Z",
     "error": null
   },
   {
@@ -2659,8 +2659,8 @@
     "company": "LambdaTest",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:24:00.063Z",
     "error": null
   },
   {
@@ -2671,8 +2671,8 @@
     "company": "Founder and Lightning",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:24:19.034Z",
     "error": null
   },
   {
@@ -2683,8 +2683,8 @@
     "company": "Innover Digital",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:24:35.255Z",
     "error": null
   },
   {
@@ -2695,8 +2695,8 @@
     "company": "Naviga India",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:24:58.299Z",
     "error": null
   },
   {
@@ -2707,8 +2707,8 @@
     "company": "Sriven Systems",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:25:17.209Z",
     "error": null
   },
   {
@@ -2719,8 +2719,8 @@
     "company": "eClinical Solutions",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:25:34.358Z",
     "error": null
   },
   {
@@ -2731,8 +2731,8 @@
     "company": "Softura",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:25:51.435Z",
     "error": null
   },
   {
@@ -2743,8 +2743,8 @@
     "company": "Jagran New Media",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:26:07.331Z",
     "error": null
   },
   {
@@ -2755,8 +2755,8 @@
     "company": "SRINI PHARMACEUTICALS",
     "isValidEmail": true,
     "page": 7,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:26:25.812Z",
     "error": null
   },
   {
@@ -2767,8 +2767,8 @@
     "company": "Palni Inc",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:26:42.741Z",
     "error": null
   },
   {
@@ -2779,8 +2779,8 @@
     "company": "Streamoid",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:27:01.409Z",
     "error": null
   },
   {
@@ -2791,8 +2791,8 @@
     "company": "ColorTokens",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:27:20.287Z",
     "error": null
   },
   {
@@ -2803,8 +2803,8 @@
     "company": "FCS Software Solutions",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:27:37.620Z",
     "error": null
   },
   {
@@ -2815,8 +2815,8 @@
     "company": "GoKwik",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:27:54.315Z",
     "error": null
   },
   {
@@ -2827,8 +2827,8 @@
     "company": "Acnovate Corporation",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:28:10.133Z",
     "error": null
   },
   {
@@ -2839,8 +2839,8 @@
     "company": "Catalyst Business Solutions",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:28:25.707Z",
     "error": null
   },
   {
@@ -2851,8 +2851,8 @@
     "company": "Introlligent",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:28:42.744Z",
     "error": null
   },
   {
@@ -2863,8 +2863,8 @@
     "company": "Rang Technologies Inc",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:29:02.924Z",
     "error": null
   },
   {
@@ -2875,8 +2875,8 @@
     "company": "iFlair Web Technologies",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:29:20.272Z",
     "error": null
   },
   {
@@ -2887,8 +2887,8 @@
     "company": "Byteridge",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:29:35.813Z",
     "error": null
   },
   {
@@ -2899,8 +2899,8 @@
     "company": "zCon Solutions",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:29:54.008Z",
     "error": null
   },
   {
@@ -2911,8 +2911,8 @@
     "company": "Ample Technologies",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:30:09.855Z",
     "error": null
   },
   {
@@ -2923,8 +2923,8 @@
     "company": "ETG Digital",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:30:28.917Z",
     "error": null
   },
   {
@@ -2935,8 +2935,8 @@
     "company": "CaaStle",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:30:44.738Z",
     "error": null
   },
   {
@@ -2947,8 +2947,8 @@
     "company": "Netcore Cloud",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:31:00.526Z",
     "error": null
   },
   {
@@ -2959,8 +2959,8 @@
     "company": "Vymo",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:31:16.035Z",
     "error": null
   },
   {
@@ -2971,8 +2971,8 @@
     "company": "KPI Partners",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:31:32.732Z",
     "error": null
   },
   {
@@ -2983,8 +2983,8 @@
     "company": "VNC Digital Services",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:31:50.654Z",
     "error": null
   },
   {
@@ -2995,8 +2995,8 @@
     "company": "Interra Information Technologies",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:32:09.283Z",
     "error": null
   },
   {
@@ -3007,8 +3007,8 @@
     "company": "Atidiv",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:32:26.495Z",
     "error": null
   },
   {
@@ -3019,8 +3019,8 @@
     "company": "BetterPlace",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:32:42.333Z",
     "error": null
   },
   {
@@ -3031,8 +3031,8 @@
     "company": "Everyday Health Group",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:33:01.543Z",
     "error": null
   },
   {
@@ -3043,8 +3043,8 @@
     "company": "thinkbridge",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:33:24.580Z",
     "error": null
   },
   {
@@ -3055,8 +3055,8 @@
     "company": "INTECH",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:33:43.293Z",
     "error": null
   },
   {
@@ -3067,8 +3067,8 @@
     "company": "ZeOmega",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:34:01.288Z",
     "error": null
   },
   {
@@ -3079,8 +3079,8 @@
     "company": "Axioned",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:34:21.694Z",
     "error": null
   },
   {
@@ -3091,8 +3091,8 @@
     "company": "Gupshup",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:34:39.239Z",
     "error": null
   },
   {
@@ -3103,8 +3103,8 @@
     "company": "Esri India",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:34:57.194Z",
     "error": null
   },
   {
@@ -3115,8 +3115,8 @@
     "company": "Ducen",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:35:13.550Z",
     "error": null
   },
   {
@@ -3127,8 +3127,8 @@
     "company": "Konica Minolta Business Solutions India",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:35:31.010Z",
     "error": null
   },
   {
@@ -3139,8 +3139,8 @@
     "company": "AppViewX",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:35:46.607Z",
     "error": null
   },
   {
@@ -3151,8 +3151,8 @@
     "company": "Visible Alpha",
     "isValidEmail": true,
     "page": 8,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:36:03.925Z",
     "error": null
   },
   {
@@ -3163,8 +3163,8 @@
     "company": "NTT DATA",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:36:19.947Z",
     "error": null
   },
   {
@@ -3175,8 +3175,8 @@
     "company": "IT Services",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:36:35.955Z",
     "error": null
   },
   {
@@ -3187,8 +3187,8 @@
     "company": "ISHIR",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:36:53.244Z",
     "error": null
   },
   {
@@ -3199,8 +3199,8 @@
     "company": "Galaxy Weblinks Inc",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:37:13.234Z",
     "error": null
   },
   {
@@ -3211,8 +3211,8 @@
     "company": "Accutech Power Solutions",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:37:28.402Z",
     "error": null
   },
   {
@@ -3223,8 +3223,8 @@
     "company": "C-Square Info Solutions",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:37:47.820Z",
     "error": null
   },
   {
@@ -3235,8 +3235,8 @@
     "company": "Dixit Infotech Services",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:38:03.232Z",
     "error": null
   },
   {
@@ -3247,8 +3247,8 @@
     "company": "Proximity Works",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:38:22.900Z",
     "error": null
   },
   {
@@ -3259,8 +3259,8 @@
     "company": "Genzeon",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:38:42.945Z",
     "error": null
   },
   {
@@ -3271,8 +3271,8 @@
     "company": "Skience",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:38:58.605Z",
     "error": null
   },
   {
@@ -3283,8 +3283,8 @@
     "company": "Appiness Interactive",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:39:22.333Z",
     "error": null
   },
   {
@@ -3295,8 +3295,8 @@
     "company": "Webkul",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:39:39.043Z",
     "error": null
   },
   {
@@ -3307,8 +3307,8 @@
     "company": "Smart IMS",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:40:01.450Z",
     "error": null
   },
   {
@@ -3319,8 +3319,8 @@
     "company": "ETG Digital",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:40:18.038Z",
     "error": null
   },
   {
@@ -3331,8 +3331,8 @@
     "company": "MindCraft Software",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:40:34.715Z",
     "error": null
   },
   {
@@ -3343,8 +3343,8 @@
     "company": "Orcapod",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:40:52.564Z",
     "error": null
   },
   {
@@ -3355,8 +3355,8 @@
     "company": "Conviva",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:41:09.685Z",
     "error": null
   },
   {
@@ -3367,8 +3367,8 @@
     "company": "Trell",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:41:31.325Z",
     "error": null
   },
   {
@@ -3379,8 +3379,8 @@
     "company": "ACCELQ",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:41:47.913Z",
     "error": null
   },
   {
@@ -3391,8 +3391,8 @@
     "company": "Mobiloitte",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:42:04.122Z",
     "error": null
   },
   {
@@ -3403,8 +3403,8 @@
     "company": "Quark Software",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:42:20.086Z",
     "error": null
   },
   {
@@ -3415,8 +3415,8 @@
     "company": "Prescient Technologies",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:42:38.361Z",
     "error": null
   },
   {
@@ -3427,8 +3427,8 @@
     "company": "Akal Information Systems",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:43:01.338Z",
     "error": null
   },
   {
@@ -3439,8 +3439,8 @@
     "company": "StrategicERP Business Automation Solut",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:43:18.660Z",
     "error": null
   },
   {
@@ -3451,8 +3451,8 @@
     "company": "Loco",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:43:36.590Z",
     "error": null
   },
   {
@@ -3463,8 +3463,8 @@
     "company": "BrainerHub Solutions",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:43:54.727Z",
     "error": null
   },
   {
@@ -3475,8 +3475,8 @@
     "company": "SSM InfoTech Solutions",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:44:10.645Z",
     "error": null
   },
   {
@@ -3487,8 +3487,8 @@
     "company": "DVG",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:44:28.725Z",
     "error": null
   },
   {
@@ -3499,8 +3499,8 @@
     "company": "ShopX",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:44:47.763Z",
     "error": null
   },
   {
@@ -3511,8 +3511,8 @@
     "company": "Lumiq",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:45:11.446Z",
     "error": null
   },
   {
@@ -3523,8 +3523,8 @@
     "company": "Akshay Software Technologies",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:45:28.409Z",
     "error": null
   },
   {
@@ -3535,8 +3535,8 @@
     "company": "Atlan",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:45:49.404Z",
     "error": null
   },
   {
@@ -3547,8 +3547,8 @@
     "company": "Data Intensity",
     "isValidEmail": true,
     "page": 9,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-02T19:46:05.522Z",
     "error": null
   },
   {
@@ -3559,8 +3559,8 @@
     "company": "Newt Global Consulting",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T10:58:35.414Z",
     "error": null
   },
   {
@@ -3571,8 +3571,8 @@
     "company": "iValue InfoSolutions",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T10:58:51.566Z",
     "error": null
   },
   {
@@ -3583,8 +3583,8 @@
     "company": "Zendrive",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T10:59:13.716Z",
     "error": null
   },
   {
@@ -3595,8 +3595,8 @@
     "company": "Apptware",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T10:59:30.125Z",
     "error": null
   },
   {
@@ -3607,8 +3607,8 @@
     "company": "Eternus",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T10:59:48.651Z",
     "error": null
   },
   {
@@ -3619,8 +3619,8 @@
     "company": "NeST Digital",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:00:12.265Z",
     "error": null
   },
   {
@@ -3631,8 +3631,8 @@
     "company": "Senrysa Technologies",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:00:34.696Z",
     "error": null
   },
   {
@@ -3643,8 +3643,8 @@
     "company": "Imperative Business Ventures",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:00:54.622Z",
     "error": null
   },
   {
@@ -3655,8 +3655,8 @@
     "company": "TactTree LLP",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:01:12.256Z",
     "error": null
   },
   {
@@ -3667,8 +3667,8 @@
     "company": "CRG Solutions",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:01:29.028Z",
     "error": null
   },
   {
@@ -3679,8 +3679,8 @@
     "company": "Logixal Inc",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:01:45.313Z",
     "error": null
   },
   {
@@ -3691,8 +3691,8 @@
     "company": "Hirexa Solutions",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:02:03.297Z",
     "error": null
   },
   {
@@ -3703,8 +3703,8 @@
     "company": "Ivy Mobility",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:02:20.230Z",
     "error": null
   },
   {
@@ -3715,8 +3715,8 @@
     "company": "Credence Analytics",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:02:40.084Z",
     "error": null
   },
   {
@@ -3727,8 +3727,8 @@
     "company": "Pesto Tech",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
-    "sentAt": null,
+    "status": "sent",
+    "sentAt": "2026-07-03T11:02:58.839Z",
     "error": null
   },
   {
@@ -3739,7 +3739,7 @@
     "company": "Securelynkx Networks",
     "isValidEmail": true,
     "page": 10,
-    "status": "pending",
+    "status": "sending",
     "sentAt": null,
     "error": null
   },
