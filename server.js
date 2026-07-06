@@ -69,7 +69,8 @@ function getDefaultSettings() {
       subject: 'SWE / Backend / AI-ML Intern Application — Keshav Kakani, IIT Jodhpur',
       body: `Dear {name},\n\nI'm Keshav Kakani, a pre-final year B.Tech student at IIT Jodhpur with experience building backend systems and AI-powered products end to end. I'm currently an SDE Intern at UnitedTechlab, where I've worked on CI/CD automation, secure credential management on AWS, and authorization systems across 15+ production REST endpoints.\n\nBeyond my internship, I've built a production-grade MERN blogging platform with dual authentication and cloud-integrated uploads, a custom C++ chess engine with real-time Stockfish analysis over WebSockets, and a hybrid ML recommendation system combining XGBoost with content affinity modeling.\n\nI'm strong at the intersection of backend engineering and AI integration, and I'd love to explore SWE, Backend, or AI/ML internship opportunities at {company}. Resume attached for more details.\n\nLooking forward to hearing from you.\n\nBest regards,\nKeshav Kakani\nIIT Jodhpur | kkakani160@gmail.com | +91 9024099116 | github.com/keshav9926`
     },
-    delay: 10000 // 10 seconds
+    delay: 10000, // 10 seconds
+    maxPerDay: 450 // Gmail free limit is ~500/day; stay safe with 450
   };
 }
 
@@ -166,7 +167,25 @@ async function sendNextEmail() {
   queueState.activeSending = true;
   const contacts = getContactsStatus();
   const settings = getSettings();
-  
+
+  // ── Daily send cap guard ──────────────────────────────────────────────────
+  const maxPerDay = settings.maxPerDay || 450;
+  const todayPrefix = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+  const sentToday = contacts.filter(
+    c => c.status === 'sent' && c.sentAt && c.sentAt.startsWith(todayPrefix)
+  ).length;
+
+  if (sentToday >= maxPerDay) {
+    logMessage(
+      `⏸ Daily send cap reached: ${sentToday}/${maxPerDay} emails sent today (${todayPrefix}). ` +
+      `Queue auto-paused. Resume after midnight UTC (5:30 AM IST).`
+    );
+    queueState.status = 'paused';
+    queueState.activeSending = false;
+    return;
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   // Find the first pending contact
   const nextContactIndex = contacts.findIndex(c => c.status === 'pending');
   
