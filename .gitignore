@@ -5,6 +5,7 @@ node_modules/
 settings.json
 contacts_status.json
 sending_logs.txt
+contacts.json
 
 # Personal PDFs (Resumes & Contacts)
 *.pdf
