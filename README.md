@@ -14,7 +14,7 @@ graph TD
     C -->|Express API| D[Web Dashboard]
     E[settings.json] -->|SMTP Config & Templates| F[Nodemailer Sender Engine]
     C -->|Queue Processing| F
-    G[resume 10.pdf] -->|Auto-Attachment| F
+    G[resume.pdf] -->|Auto-Attachment| F
     F -->|SMTP Send| H[Recruiter Inbox]
     F -->|Log Events| I[sending_logs.txt]
 ```
@@ -50,7 +50,7 @@ To prevent SMTP account locks, spam classifications, and crashes:
 * **Daily Send Limits**: Configurable daily sending threshold cap (default `450/day` to stay within Google free limits of 500). Automatically pauses sending when reached.
 * **Sending Delays**: Configured interval delay between individual emails (default `10 seconds`) to avoid spam flags.
 * **State Persistence**: Saves individual progress in `contacts_status.json`. If the server crashes or restarts, it picks up exactly where it left off, reverting any active `sending` status back to `pending`.
-* **Auto-Attachment Detection**: Automatically detects and attaches `resume (10).pdf` in the workspace directory.
+* **Auto-Attachment Detection**: Automatically detects and attaches the resume PDF in the workspace directory.
 
 ---
 
@@ -69,7 +69,7 @@ emailsender/
 ├── contacts.json               # Parsed recruiters list
 ├── contacts_status.json        # Progress state of the mailing list
 ├── sending_logs.txt            # Real-time event log file
-├── resume (10).pdf             # PDF attachment sent with the emails
+├── resume.pdf                  # PDF attachment sent with the emails (e.g. resume.pdf)
 ├── package.json                # Project dependencies and script triggers
 └── README.md                   # Project documentation
 ```
@@ -135,13 +135,6 @@ By default, the server runs at **`http://localhost:3000`**.
    * `{title}`: Recruiter's job title
    * `{email}`: Recruiter's email address
 4. Click **Save Settings**.
-5. Put your resume PDF in the root folder under the name **`resume (10).pdf`**.
+5. Put your resume PDF in the root folder under the name **`resume.pdf`** (or your designated resume filename).
 6. Use the **Test Connection** feature to send a sample email to yourself first.
 7. Click **Start Campaign**!
-
----
-
-## 📈 Campaign Execution Summary
-
-* **Total Contacts**: 638 (Current campaign)
-* **Status**: Loaded from Google Sheets, ready to run.
