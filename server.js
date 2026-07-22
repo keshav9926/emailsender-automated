@@ -69,8 +69,11 @@ function getDefaultSettings() {
       subject: 'SWE / Backend / AI-ML Intern Application — Keshav Kakani, IIT Jodhpur',
       body: `Dear {name},\n\nI'm Keshav Kakani, a pre-final year B.Tech student at IIT Jodhpur with experience building backend systems and AI-powered products end to end. I'm currently an SDE Intern at UnitedTechlab, where I've worked on CI/CD automation, secure credential management on AWS, and authorization systems across 15+ production REST endpoints.\n\nBeyond my internship, I've built a production-grade MERN blogging platform with dual authentication and cloud-integrated uploads, a custom C++ chess engine with real-time Stockfish analysis over WebSockets, and a hybrid ML recommendation system combining XGBoost with content affinity modeling.\n\nI'm strong at the intersection of backend engineering and AI integration, and I'd love to explore SWE, Backend, or AI/ML internship opportunities at {company}. Resume attached for more details.\n\nLooking forward to hearing from you.\n\nBest regards,\nKeshav Kakani\nIIT Jodhpur | kkakani160@gmail.com | +91 9024099116 | github.com/keshav9926`
     },
-    delay: 10000, // 10 seconds
-    maxPerDay: 450 // Gmail free limit is ~500/day; stay safe with 450
+    delay: 30000,
+    randomizeDelay: true,
+    minDelay: 30000,
+    maxDelay: 60000,
+    maxPerDay: 200
   };
 }
 
@@ -143,11 +146,26 @@ function createTransporter(smtpSettings) {
 // Template compiler
 function compileTemplate(text, contact) {
   if (!text) return '';
-  const name    = (contact.name    && contact.name.trim())    ? contact.name.trim()    : 'there';
-  const company = (contact.company && contact.company.trim()) ? contact.company.trim() : 'your organization';
-  const title   = (contact.title   && contact.title.trim())   ? contact.title.trim()   : '';
-  const email   = (contact.email   && contact.email.trim())   ? contact.email.trim()   : '';
+  const name        = (contact.name    && contact.name.trim())    ? contact.name.trim()    : 'there';
+  const company     = (contact.company && contact.company.trim()) ? contact.company.trim() : 'your company';
+  const title       = (contact.title   && contact.title.trim())   ? contact.title.trim()   : '';
+  const email       = (contact.email   && contact.email.trim())   ? contact.email.trim()   : '';
+  const observation = 'your approach to building AI-powered products';
+  const vortexify   = 'https://firstimpressione.netlify.app/vortexify/';
+  const kainest     = 'https://firstimpressione.netlify.app/kainest/';
+  const github      = 'https://github.com/keshav9926';
+  const portfolio   = 'https://keshav9926.github.io';
+
   return text
+    .replace(/\{\{\s*founder_name\s*\}\}/gi, name)
+    .replace(/\{\{\s*company_name\s*\}\}/gi, company)
+    .replace(/\{\{\s*personalized_observation\s*\}\}/gi, observation)
+    .replace(/\{\{\s*vortexify_report\s*\}\}/gi, vortexify)
+    .replace(/\{\{\s*kainest_report\s*\}\}/gi, kainest)
+    .replace(/\{\{\s*github_url\s*\}\}/gi, github)
+    .replace(/\{\{\s*portfolio_url\s*\}\}/gi, portfolio)
+    .replace(/{founder name}/gi, name)
+    .replace(/{company name}/gi, company)
     .replace(/{name}/gi,    name)
     .replace(/{company}/gi, company)
     .replace(/{title}/gi,   title)
@@ -215,11 +233,27 @@ async function sendNextEmail() {
     // Check if the body looks like HTML
     const isHtml = /<[a-z][\s\S]*>/i.test(body);
     
+    function stripHtmlToText(htmlStr) {
+      if (!htmlStr) return '';
+      return htmlStr
+        .replace(/<a\s+[^>]*href=["']([^"']*)["'][^>]*>(.*?)<\/a>/gi, '$2 ($1)')
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<\/p>/gi, '\n\n')
+        .replace(/<[^>]+>/g, '')
+        .replace(/\n\s*\n\s*\n/g, '\n\n')
+        .trim();
+    }
+    
     const mailOptions = {
       from: `"${fromName}" <${fromEmail}>`,
       to: contact.email,
       subject: subject,
-      [isHtml ? 'html' : 'text']: body
+      ...(isHtml ? {
+        html: body,
+        text: stripHtmlToText(body)
+      } : {
+        text: body
+      })
     };
     
     // Auto-detect and attach resume (10).pdf if it exists in current directory
@@ -228,7 +262,8 @@ async function sendNextEmail() {
       mailOptions.attachments = [
         {
           filename: 'Resume_Keshav_Kakani.pdf',
-          path: resumePath
+          content: fs.readFileSync(resumePath),
+          contentType: 'application/pdf'
         }
       ];
     }
@@ -251,7 +286,12 @@ async function sendNextEmail() {
   }
   
   // Wait for the configured delay before sending the next one
-  const delayTime = settings.delay || queueState.delay;
+  let delayTime = settings.delay || queueState.delay;
+  if (settings.randomizeDelay === true || settings.randomizeDelay === 'true') {
+    const min = parseInt(settings.minDelay) || 30000;
+    const max = parseInt(settings.maxDelay) || 60000;
+    delayTime = Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   logMessage(`Waiting ${delayTime / 1000} seconds before next email...`);
   
   queueTimeoutId = setTimeout(() => {

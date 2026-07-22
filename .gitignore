@@ -6,11 +6,13 @@ settings.json
 contacts_status.json
 sending_logs.txt
 contacts.json
+contacts_backup*.json
 
 # Personal PDFs (Resumes & Contacts)
 *.pdf
+backups_pdf/
 
-# Temporary Scripts & Text Extracts
+# Temporary Test & Scraping Scripts
 inspect_pdf.py
 pdf_sample.txt
 test_layout.py
@@ -20,6 +22,8 @@ layout_page2.txt
 test_split.py
 parse_pdf.py
 send_test.js
-backups_pdf/
+send_single_founder.js
+send_test_direct.js
+test_spam_filters.js
+import_scraped_campaign.js
 import_google_sheet.js
-

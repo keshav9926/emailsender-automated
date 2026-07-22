@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     settings: {
       smtp: { host: '', port: 587, secure: false, user: '', pass: '', senderName: '', senderEmail: '' },
       template: { subject: '', body: '' },
-      delay: 10000
+      delay: 10000,
+      randomizeDelay: false,
+      minDelay: 30000,
+      maxDelay: 60000,
+      maxPerDay: 200
     },
     // Pagination
     pageSize: 50,
@@ -46,6 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const badgeDelay = document.getElementById('delay-value-badge');
   const terminalLogs = document.getElementById('terminal-logs');
   const reimportBtn = document.getElementById('reimport-pdf-btn');
+  
+  // New random delay elements
+  const randomizeDelayCheckbox = document.getElementById('randomize-delay-checkbox');
+  const fixedDelayWrapper = document.getElementById('fixed-delay-wrapper');
+  const randomDelayWrapper = document.getElementById('random-delay-wrapper');
+  const delayMinSlider = document.getElementById('delay-min-slider');
+  const delayMaxSlider = document.getElementById('delay-max-slider');
+  const randomDelayBadge = document.getElementById('random-delay-badge');
+  const maxPerDayInput = document.getElementById('max-per-day-input');
   
   // Recipients Table
   const tableBody = document.getElementById('recipients-tbody');
@@ -170,10 +183,23 @@ document.addEventListener('DOMContentLoaded', () => {
       inputSubject.value = settings.template.subject || '';
       textareaBody.value = settings.template.body || '';
       
-      // Populate Delay slider
+      // Populate Delay settings
+      const randomize = settings.randomizeDelay === true || settings.randomizeDelay === 'true';
+      randomizeDelayCheckbox.checked = randomize;
+      fixedDelayWrapper.style.display = randomize ? 'none' : 'block';
+      randomDelayWrapper.style.display = randomize ? 'block' : 'none';
+      
       const delaySec = (settings.delay || 10000) / 1000;
       sliderDelay.value = delaySec;
       badgeDelay.textContent = `${delaySec}s`;
+
+      const minDelaySec = (settings.minDelay || 30000) / 1000;
+      delayMinSlider.value = minDelaySec;
+      const maxDelaySec = (settings.maxDelay || 60000) / 1000;
+      delayMaxSlider.value = maxDelaySec;
+      randomDelayBadge.textContent = `${minDelaySec}s - ${maxDelaySec}s`;
+
+      maxPerDayInput.value = settings.maxPerDay || 200;
       
       updateLivePreview();
     } catch (e) {
@@ -203,6 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
     settings.smtp.secure = document.querySelector('input[name="smtp-secure"]:checked').value === 'true';
     
     settings.delay = parseInt(sliderDelay.value) * 1000;
+    settings.randomizeDelay = randomizeDelayCheckbox.checked;
+    settings.minDelay = parseInt(delayMinSlider.value) * 1000;
+    settings.maxDelay = parseInt(delayMaxSlider.value) * 1000;
+    settings.maxPerDay = parseInt(maxPerDayInput.value) || 200;
     
     try {
       const response = await fetch('/api/settings', {
@@ -541,11 +571,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- EMAIL TEMPLATE COMPILED PREVIEW ---
   function compileTemplate(text, contact) {
     if (!text || !contact) return '';
+    const name = contact.name || 'there';
+    const company = contact.company || 'your company';
     return text
-      .replace(/{name}/gi, contact.name || '')
+      .replace(/{founder name}/gi, name)
+      .replace(/{company name}/gi, company)
+      .replace(/{name}/gi, name)
       .replace(/{email}/gi, contact.email || '')
       .replace(/{title}/gi, contact.title || '')
-      .replace(/{company}/gi, contact.company || '')
+      .replace(/{company}/gi, company)
       .replace(/{sno}/gi, contact.sno || '');
   }
 
@@ -781,19 +815,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Delay Slider
-  sliderDelay.addEventListener('input', () => {
-    const val = sliderDelay.value;
-    badgeDelay.textContent = `${val}s`;
-  });
-
-  sliderDelay.addEventListener('change', async () => {
-    const delayMs = parseInt(sliderDelay.value) * 1000;
-    
-    // Save locally and send to server
-    const settings = { ...appState.settings };
-    settings.delay = delayMs;
-    
+  // Shared helper to update settings on server
+  async function updateSettingsOnServer(settings) {
     try {
       const response = await fetch('/api/settings', {
         method: 'POST',
@@ -803,10 +826,88 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       if (data.success) {
         appState.settings = data.settings;
-        showToast(`Delay interval updated to ${sliderDelay.value}s`, 'success');
+        return true;
       }
     } catch (e) {
+      console.error('Failed to update settings', e);
+    }
+    return false;
+  }
+
+  // Randomize Delay Checkbox
+  randomizeDelayCheckbox.addEventListener('change', async () => {
+    const isChecked = randomizeDelayCheckbox.checked;
+    fixedDelayWrapper.style.display = isChecked ? 'none' : 'block';
+    randomDelayWrapper.style.display = isChecked ? 'block' : 'none';
+    
+    const settings = { ...appState.settings };
+    settings.randomizeDelay = isChecked;
+    const success = await updateSettingsOnServer(settings);
+    if (success) {
+      showToast(isChecked ? 'Randomized delay enabled' : 'Fixed delay enabled', 'success');
+    } else {
+      showToast('Failed to update settings on server.', 'error');
+    }
+  });
+
+  // Delay Slider
+  sliderDelay.addEventListener('input', () => {
+    const val = sliderDelay.value;
+    badgeDelay.textContent = `${val}s`;
+  });
+
+  sliderDelay.addEventListener('change', async () => {
+    const delayMs = parseInt(sliderDelay.value) * 1000;
+    const settings = { ...appState.settings };
+    settings.delay = delayMs;
+    const success = await updateSettingsOnServer(settings);
+    if (success) {
+      showToast(`Delay interval updated to ${sliderDelay.value}s`, 'success');
+    } else {
       showToast('Failed to update delay on server.', 'error');
+    }
+  });
+
+  // Min/Max sliders
+  const updateRandomBadge = () => {
+    randomDelayBadge.textContent = `${delayMinSlider.value}s - ${delayMaxSlider.value}s`;
+  };
+
+  delayMinSlider.addEventListener('input', updateRandomBadge);
+  delayMaxSlider.addEventListener('input', updateRandomBadge);
+
+  const onRandomDelayChange = async () => {
+    let minVal = parseInt(delayMinSlider.value);
+    let maxVal = parseInt(delayMaxSlider.value);
+    if (minVal > maxVal) {
+      minVal = maxVal;
+      delayMinSlider.value = minVal;
+      updateRandomBadge();
+    }
+    const settings = { ...appState.settings };
+    settings.minDelay = minVal * 1000;
+    settings.maxDelay = maxVal * 1000;
+    const success = await updateSettingsOnServer(settings);
+    if (success) {
+      showToast(`Random delay range set to ${minVal}s - ${maxVal}s`, 'success');
+    } else {
+      showToast('Failed to update delay on server.', 'error');
+    }
+  };
+
+  delayMinSlider.addEventListener('change', onRandomDelayChange);
+  delayMaxSlider.addEventListener('change', onRandomDelayChange);
+
+  // Daily cap input
+  maxPerDayInput.addEventListener('change', async () => {
+    const cap = parseInt(maxPerDayInput.value) || 200;
+    const settings = { ...appState.settings };
+    settings.maxPerDay = cap;
+    const success = await updateSettingsOnServer(settings);
+    if (success) {
+      showToast(`Daily sending cap set to ${cap}`, 'success');
+    } else {
+      showToast('Failed to update daily cap.', 'error');
     }
   });
 
