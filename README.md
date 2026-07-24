@@ -1,56 +1,63 @@
-# Cold Email Campaign Automation Server & PDF/Excel Parser
+# 🚀 Cold Email Campaign Automation Engine & Contact Importer
 
-An end-to-end, locally hosted email campaign management system. It parses unstructured recruiter/HR contact lists directly from PDFs and Google Sheets, cleans the data, configures SMTP nodes, designs customizable templates, tracks delivery progress, and enforces safety guards to automate outreach.
+An end-to-end, full-stack email outreach & campaign automation platform built with Node.js, Express, and Nodemailer. Designed for automated cold emailing, founder/recruiter outreach, and job application campaigns with strict deliverability guards, state persistence, real-time web monitoring, and Google Sheets integration.
 
 ---
 
-## 🚀 System Architecture Flow
+## 📐 System Architecture
 
 ```mermaid
 graph TD
-    A1[CompanyWise HR contact.pdf] -->|parse_pdf_adaptive.py| B[contacts.json]
-    A2[Google Sheet / Excel] -->|import_google_sheet.js| B
-    B -->|Initialization| C[contacts_status.json]
-    C -->|Express API| D[Web Dashboard]
-    E[settings.json] -->|SMTP Config & Templates| F[Nodemailer Sender Engine]
-    C -->|Queue Processing| F
-    G[resume.pdf] -->|Auto-Attachment| F
-    F -->|SMTP Send| H[Recruiter Inbox]
-    F -->|Log Events| I[sending_logs.txt]
+    A[Google Sheet / Excel] -->|import_google_sheet.js| B[contacts.json]
+    B -->|Initialize Queue| C[contacts_status.json]
+    D[settings.json] -->|SMTP Config & Templates| E[Campaign Engine]
+    C -->|Queue Reader| E
+    F[resume.pdf] -->|Auto PDF Attachment| E
+    
+    subgraph Execution Options
+        E -->|Option A: Web GUI| G[Express Server & Web Panel]
+        E -->|Option B: CLI Headless| H[run_campaign.js Engine]
+    end
+
+    G -->|Nodemailer SMTP| I[Recipient Inbox]
+    H -->|Nodemailer SMTP| I
+    E -->|Write Logs| J[sending_logs.txt]
 ```
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-### 1. 🤖 Adaptive PDF Layout Parser (`parse_pdf_adaptive.py`)
-PDF column extractors often merge columns or misalign table cells when pages have varying layout shifts. This system features an **adaptive coordinate-based algorithm**:
-* **Dynamic Column Alignment**: Analyzes the layout spacing of each page individually to locate name, email, title, and company details.
-* **Median Coordinate Anchor**: Calculates median start offsets for columns per page to prevent outlier lines from corrupting the layout parsing.
-* **Merged Line Reconstruction**: Reconstructs fields on complex rows where columns bleed into each other.
-* **Validation**: Auto-flags and validates email strings to prevent bad delivery attempts.
+### 1. ⚡ Dual Execution Modes (Web GUI & Headless CLI)
+* **Web Control Panel (`server.js` + `public/`)**: Full-featured Express backend serving a modern dark-themed web dashboard for visual monitoring, contact search, log streaming, settings editing, and campaign control.
+* **Headless CLI Engine (`run_campaign.js`)**: Lightweight, standalone script designed for headless server or background terminal execution with zero UI dependencies.
 
-### 2. 📊 Google Sheets / Excel Importer (`import_google_sheet.js`)
-Integrates directly with online Google Sheets to import recruiter lists:
-* **Automatic Mapping**: Maps spreadsheet columns (`First Name`, `Email`, `Title`, `Company`) to campaign variables.
-* **Greeting Personalization**: Dynamically isolates the recruiter's **First Name** for warm, conversational greetings.
-* **Validation Filter**: Automatically validates and filters out rows that lack valid email addresses.
-* **Auto-Backup**: Automatically backs up older campaign database files to the `backups_pdf/` directory before overwriting.
+### 2. 📊 Google Sheets Importer (`import_google_sheet.js`)
+* **Direct Web CSV Fetch**: Fetches public/shared Google Sheets CSV/GViz endpoints directly over HTTP.
+* **Smart Field Extraction**: Automatically cleans, formats, and extracts recruiter/founder **names**, **companies**, **titles**, and **email addresses**.
+* **Greeting Personalization**: Extracts first names for natural email greetings.
+* **Auto Backup**: Automatically archives existing campaign databases into `backups_pdf/` before overwriting.
 
-### 3. 📊 Campaign Control Dashboard (`public/`)
-A premium web panel to track, configure, and control the mailing queue:
-* **Real-time Metrics**: Card-based displays showing total, sent, failed, pending, and skipped counts.
-* **Interactive Control**: Toggle-states to **Start**, **Pause**, or **Reset** the email queue.
-* **Live Feed Logs**: Active, real-time logging output from the backend sending loop.
-* **Contact Table**: Paginated list of contacts featuring a live search bar and the ability to skip/unskip specific recruiters.
-* **Live SMTP Tester**: Validate SMTP settings and send test emails containing the PDF attachment before starting a campaign.
+### 3. 🎯 Template Engine & Placeholders
+Templating engine supporting both double-brace (`{{var}}`) and single-brace (`{var}`) tags:
+* `{{founder_name}}` / `{name}`: Target contact's first name.
+* `{{company_name}}` / `{company}`: Target company name.
+* `{title}`: Recruiter/founder job title.
+* `{email}`: Target email address.
+* Built-in helpers for custom URLs (portfolio, GitHub, case studies).
 
-### 4. 🛡️ Delivery Safety Guards (`server.js`)
-To prevent SMTP account locks, spam classifications, and crashes:
-* **Daily Send Limits**: Configurable daily sending threshold cap (default `450/day` to stay within Google free limits of 500). Automatically pauses sending when reached.
-* **Sending Delays**: Configured interval delay between individual emails (default `10 seconds`) to avoid spam flags.
-* **State Persistence**: Saves individual progress in `contacts_status.json`. If the server crashes or restarts, it picks up exactly where it left off, reverting any active `sending` status back to `pending`.
-* **Auto-Attachment Detection**: Automatically detects and attaches the resume PDF in the workspace directory.
+### 4. 🛡️ Deliverability & Safety Guardrails
+* **Randomized Anti-Spam Delays**: Built-in jitter delay between emails (e.g. 45–90 seconds) to prevent triggering ISP rate-limiters and spam filters.
+* **Daily Sending Caps**: Configurable maximum email limit per 24-hour cycle (`maxPerDay`, default 250) to protect sender domain reputation.
+* **Crash-Resilient State Engine**: Saves real-time delivery state (`pending`, `sending`, `sent`, `failed`) in `contacts_status.json`. Automatically recovers gracefully from restarts or network interruptions.
+* **Automated PDF Attachment**: Automatically locates and attaches your resume PDF (`resume.pdf` or `resume (10).pdf`) to outgoing messages.
+
+### 5. 🖥️ Interactive Web Dashboard (`public/`)
+* **Live Metrics**: Total contacts, sent, failed, pending, and skipped counts.
+* **Queue Controls**: Start, pause, or reset campaign execution on the fly.
+* **Real-time Terminal Logs**: Live event streaming directly inside the UI.
+* **Contact Management**: Filter contacts by status (`pending`, `sent`, `failed`, `skipped`), search by name/company/email, and toggle individual skip states.
+* **SMTP Configurator & Mail Tester**: Edit SMTP credentials, test connection, and send instant test emails to yourself.
 
 ---
 
@@ -59,82 +66,116 @@ To prevent SMTP account locks, spam classifications, and crashes:
 ```bash
 emailsender/
 ├── public/                     # Frontend dashboard assets
-│   ├── index.html              # HTML structure of the control panel
-│   ├── style.css               # Styling and premium dark-mode interface
-│   └── app.js                  # Frontend API requests and UI logic
-├── parse_pdf_adaptive.py       # Python PDF layout parsing script
-├── import_google_sheet.js      # Google Sheets contact importer script
-├── server.js                   # Node.js Express server and nodemailer loop
-├── settings.json               # Persisted user settings (SMTP details & templates)
-├── contacts.json               # Parsed recruiters list
-├── contacts_status.json        # Progress state of the mailing list
-├── sending_logs.txt            # Real-time event log file
-├── resume.pdf                  # PDF attachment sent with the emails (e.g. resume.pdf)
-├── package.json                # Project dependencies and script triggers
-└── README.md                   # Project documentation
+│   ├── index.html              # Single-page web dashboard interface
+│   ├── style.css               # Modern glassmorphism dark-mode stylesheet
+│   └── app.js                  # Dashboard state management & API layer
+├── import_google_sheet.js      # Google Sheets importer & contact normalizer
+├── run_campaign.js             # Standalone CLI campaign automation engine
+├── server.js                   # Express server & API endpoints for web GUI
+├── settings.json               # Persisted configuration (SMTP, templates, limits)
+├── contacts.json               # Raw imported contacts list
+├── contacts_status.json        # Campaign execution tracking database
+├── sending_logs.txt            # Real-time event & error log file
+├── resume (10).pdf             # Resume PDF attachment file
+├── package.json                # Node.js project manifest and scripts
+└── README.md                   # Complete system documentation
 ```
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Quick Start Guide
 
-### 1. Installation
-Ensure you have [Node.js](https://nodejs.org/) and [Python](https://www.python.org/) installed.
+### 1. Prerequisites
+Ensure you have **Node.js v16+** installed on your system.
 
-**Clone & Install Node Dependencies:**
+### 2. Installation
+Clone the repository and install dependencies:
 ```bash
+git clone https://github.com/keshav9926/emailsender-automated.git
+cd emailsender-automated
 npm install
 ```
 
-**Install Python PDF Parsing Libraries:**
-```bash
-pip install pypdf
-```
-
 ---
 
-### 2. Option A: Parse PDF Contact File
-If you have a PDF file with recruiter details, verify its path in `parse_pdf_adaptive.py` (default: `CompanyWise HR contact (1) (1).pdf`), then execute:
-```bash
-python parse_pdf_adaptive.py
-```
-This generates `contacts.json`. When the Express server boots, it reads this file to initialize the tracking state database in `contacts_status.json`.
+## 📥 Importing Contacts
 
----
-
-### 3. Option B: Import from Google Sheets / Excel
-If you are using a Google Sheet containing your contact lists:
-1. Configure your spreadsheet's GViz API link in the `SHEET_URL` variable inside `import_google_sheet.js`.
-2. Run the importer script:
+### Import from Google Sheets
+1. Ensure your Google Sheet is set to *"Anyone with the link can view"*.
+2. Update the `SHEET_URL` variable inside `import_google_sheet.js` with your spreadsheet ID:
+   ```javascript
+   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/gviz/tq?tqx=out:csv';
+   ```
+3. Run the importer:
    ```bash
    node import_google_sheet.js
    ```
-This will automatically back up your previous campaign files, import all valid rows from your spreadsheet, map the columns, and initialize `contacts_status.json` with all entries set to `pending`.
+This generates `contacts.json` and initializes `contacts_status.json` with all entries marked as `pending`.
 
 ---
 
-### 4. Run the Campaign Server
-Run the local Express server:
+## 🚀 Running Campaigns
+
+### Method 1: Web Dashboard (Recommended for UI control)
+1. Start the server:
+   ```bash
+   npm start
+   ```
+2. Open **`http://localhost:3000`** in your browser.
+3. Configure your SMTP settings in the **Settings** section:
+   * **Host**: `smtp.gmail.com`
+   * **Port**: `587` (or `465` for SSL)
+   * **User / Email**: `your-email@gmail.com`
+   * **Password**: Your SMTP App Password *(e.g., Google App Password)*
+4. Set your subject line and email body using placeholders like `{{founder_name}}` and `{{company_name}}`.
+5. Run **Send Test Email** to verify deliverability and attachment.
+6. Click **Start Campaign**!
+
+### Method 2: Headless CLI (Recommended for background / VPS runs)
+Run the automated CLI engine directly from terminal:
 ```bash
-npm start
+node run_campaign.js
 ```
-By default, the server runs at **`http://localhost:3000`**.
+This reads `settings.json`, monitors `contacts_status.json`, sends emails sequentially with randomized delays, logs events to `sending_logs.txt`, and stops when completed or when daily caps are reached.
 
 ---
 
-### 5. Configuration
-1. Open the dashboard in your browser.
-2. In the **Settings** panel, configure your SMTP settings:
-   * **Host**: `smtp.gmail.com` (if using Gmail)
-   * **Port**: `587`
-   * **Username**: Your email address
-   * **Password**: Your SMTP App Password (e.g., Google App Password)
-3. Write your email template. You can use dynamic placeholders:
-   * `{name}`: Recruiter's name
-   * `{company}`: Recruiter's company
-   * `{title}`: Recruiter's job title
-   * `{email}`: Recruiter's email address
-4. Click **Save Settings**.
-5. Put your resume PDF in the root folder under the name **`resume.pdf`** (or your designated resume filename).
-6. Use the **Test Connection** feature to send a sample email to yourself first.
-7. Click **Start Campaign**!
+## ⚙️ Configuration File (`settings.json`)
+
+```json
+{
+  "smtp": {
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "secure": false,
+    "user": "your-email@gmail.com",
+    "pass": "your-app-password",
+    "senderName": "Keshav Kakani",
+    "senderEmail": "your-email@gmail.com"
+  },
+  "template": {
+    "subject": "exploring opportunities at {{company_name}}",
+    "body": "Hi {{founder_name}},\n\nQuick one — I'm Keshav..."
+  },
+  "delay": 30000,
+  "randomizeDelay": true,
+  "minDelay": 45000,
+  "maxDelay": 90000,
+  "maxPerDay": 250
+}
+```
+
+---
+
+## 🛡️ Inbox Deliverability Best Practices
+
+To ensure cold emails land in the **Inbox** rather than Spam:
+1. **Always Specify Specific Company Names**: Avoid generic text like *"at your company"* as spam filters flag unfilled variables.
+2. **Set SPF, DKIM, & DMARC**: When using custom domains, ensure DNS security records are active.
+3. **Pacing**: Keep `minDelay` at **45+ seconds** and daily limits under **50–100 emails per mailbox per day**.
+4. **Clean Contact Lists**: Verify email addresses to maintain bounce rates strictly below 2%.
+
+---
+
+## 📜 License
+MIT License. Built by [Keshav Kakani](https://github.com/keshav9926).
