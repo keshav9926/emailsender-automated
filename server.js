@@ -187,7 +187,7 @@ async function sendNextEmail() {
   const settings = getSettings();
 
   // ── Daily send cap guard ──────────────────────────────────────────────────
-  const maxPerDay = settings.maxPerDay || 450;
+  const maxPerDay = settings.maxPerDay || 40;
   const todayPrefix = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
   const sentToday = contacts.filter(
     c => c.status === 'sent' && c.sentAt && c.sentAt.startsWith(todayPrefix)

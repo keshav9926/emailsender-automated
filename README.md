@@ -48,7 +48,7 @@ Templating engine supporting both double-brace (`{{var}}`) and single-brace (`{v
 
 ### 4. 🛡️ Deliverability & Safety Guardrails
 * **Randomized Anti-Spam Delays**: Built-in jitter delay between emails (e.g. 45–90 seconds) to prevent triggering ISP rate-limiters and spam filters.
-* **Daily Sending Caps**: Configurable maximum email limit per 24-hour cycle (`maxPerDay`, default 250) to protect sender domain reputation.
+* **Daily Sending Caps**: Configurable maximum email limit per 24-hour cycle (`maxPerDay`, default 40) to protect sender domain reputation.
 * **Crash-Resilient State Engine**: Saves real-time delivery state (`pending`, `sending`, `sent`, `failed`) in `contacts_status.json`. Automatically recovers gracefully from restarts or network interruptions.
 * **Automated PDF Attachment**: Automatically locates and attaches your resume PDF (`resume.pdf` or `resume (10).pdf`) to outgoing messages.
 
@@ -161,7 +161,7 @@ This reads `settings.json`, monitors `contacts_status.json`, sends emails sequen
   "randomizeDelay": true,
   "minDelay": 45000,
   "maxDelay": 90000,
-  "maxPerDay": 250
+  "maxPerDay": 40
 }
 ```
 
@@ -172,7 +172,7 @@ This reads `settings.json`, monitors `contacts_status.json`, sends emails sequen
 To ensure cold emails land in the **Inbox** rather than Spam:
 1. **Always Specify Specific Company Names**: Avoid generic text like *"at your company"* as spam filters flag unfilled variables.
 2. **Set SPF, DKIM, & DMARC**: When using custom domains, ensure DNS security records are active.
-3. **Pacing**: Keep `minDelay` at **45+ seconds** and daily limits under **50–100 emails per mailbox per day**.
+3. **Pacing**: Keep `minDelay` at **45+ seconds** and daily limits strictly under **40 emails per mailbox per day**.
 4. **Clean Contact Lists**: Verify email addresses to maintain bounce rates strictly below 2%.
 
 ---

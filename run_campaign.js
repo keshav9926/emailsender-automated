@@ -74,7 +74,7 @@ async function runAutomation() {
     const contacts = getContacts();
 
     // Check daily cap
-    const maxPerDay = settings.maxPerDay || 250;
+    const maxPerDay = settings.maxPerDay || 40;
     const todayPrefix = new Date().toISOString().slice(0, 10);
     const sentToday = contacts.filter(
       c => c.status === 'sent' && c.sentAt && c.sentAt.startsWith(todayPrefix)
