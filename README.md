@@ -150,7 +150,7 @@ This reads `settings.json`, monitors `contacts_status.json`, sends emails sequen
     "secure": false,
     "user": "your-email@gmail.com",
     "pass": "your-app-password",
-    "senderName": "Keshav Kakani",
+    "senderName": "your name ",
     "senderEmail": "your-email@gmail.com"
   },
   "template": {
