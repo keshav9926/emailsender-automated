@@ -2,10 +2,14 @@
 node_modules/
 
 # Local Configurations & Secrets
+.env
 settings.json
 contacts_status.json
 sending_logs.txt
 contacts.json
 
-# Personal PDFs (Resumes & Attachments)
+# Personal PDFs & Excel files
 *.pdf
+*.xlsx
+*.csv
+
