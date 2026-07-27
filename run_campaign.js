@@ -1,6 +1,16 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const dns = require('dns').promises;
+
+async function verifyDomainMX(domain) {
+  try {
+    const mxRecords = await dns.resolveMx(domain);
+    return mxRecords && mxRecords.length > 0;
+  } catch (err) {
+    return false;
+  }
+}
 
 const CONTACTS_STATUS_FILE = path.join(__dirname, 'contacts_status.json');
 const SETTINGS_FILE = path.join(__dirname, 'settings.json');
@@ -111,6 +121,25 @@ async function runAutomation() {
     saveContacts(contacts);
 
     logMessage(`📧 [#${contact.sno}] Sending email to ${contact.name} (${contact.email}) at ${contact.company}...`);
+
+    // ── Pre-flight MX Record Validation ──────────────────────────────────────
+    const emailDomain = contact.email ? contact.email.split('@')[1] : null;
+    if (!emailDomain || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
+      contact.status = 'failed';
+      contact.error = 'Invalid email syntax';
+      saveContacts(contacts);
+      logMessage(`⚠️ SKIPPED: ${contact.email} has invalid format.`);
+      continue;
+    }
+
+    const hasMx = await verifyDomainMX(emailDomain);
+    if (!hasMx) {
+      contact.status = 'failed';
+      contact.error = `No MX records found for domain ${emailDomain}`;
+      saveContacts(contacts);
+      logMessage(`⚠️ SKIPPED: ${contact.email} — Domain "${emailDomain}" has no active mail servers.`);
+      continue;
+    }
 
     try {
       // ── Transport: OAuth2 if refresh token present, else SMTP ──────────────
