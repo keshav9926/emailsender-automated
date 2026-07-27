@@ -1,15 +1,24 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
-const dns = require('dns').promises;
+const https = require('https');
 
-async function verifyDomainMX(domain) {
-  try {
-    const mxRecords = await dns.resolveMx(domain);
-    return mxRecords && mxRecords.length > 0;
-  } catch (err) {
-    return false;
-  }
+function verifyDomainMX(domain) {
+  return new Promise((resolve) => {
+    const url = `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=MX`;
+    https.get(url, { headers: { 'Accept': 'application/dns-json' } }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(data);
+          resolve(json.Answer && json.Answer.length > 0);
+        } catch (e) {
+          resolve(true); // Default to allow if DoH API fails
+        }
+      });
+    }).on('error', () => resolve(true)); // Default to allow if network glitch
+  });
 }
 
 const CONTACTS_STATUS_FILE = path.join(__dirname, 'contacts_status.json');
@@ -90,22 +99,28 @@ function stripHtmlToText(htmlStr) {
     .trim();
 }
 
+function getLocalDateStr(dateInput = new Date()) {
+  const d = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  const istDate = new Date(d.getTime() + (5.5 * 60 * 60 * 1000));
+  return istDate.toISOString().slice(0, 10);
+}
+
 async function runAutomation() {
-  logMessage('🚀 Starting Automated Founder Outreach Campaign from kakanikeshav0@gmail.com...');
+  logMessage('🚀 Starting Automated Founder Outreach Campaign from b24bb1015@iitj.ac.in...');
 
   while (true) {
     const settings = getSettings();
     const contacts = getContacts();
 
-    // Check daily cap
-    const maxPerDay = settings.maxPerDay || 40;
-    const todayPrefix = new Date().toISOString().slice(0, 10);
+    // Check daily cap (IST Local Day)
+    const maxPerDay = settings.maxPerDay || 35;
+    const todayStr = getLocalDateStr(new Date());
     const sentToday = contacts.filter(
-      c => c.status === 'sent' && c.sentAt && c.sentAt.startsWith(todayPrefix)
+      c => c.status === 'sent' && c.sentAt && getLocalDateStr(c.sentAt) === todayStr
     ).length;
 
     if (sentToday >= maxPerDay) {
-      logMessage(`⏸ Daily send cap reached (${sentToday}/${maxPerDay} sent today). Pausing automation.`);
+      logMessage(`⏸ Daily send cap reached (${sentToday}/${maxPerDay} sent today on ${todayStr}). Pausing automation.`);
       break;
     }
 
