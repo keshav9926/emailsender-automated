@@ -7,9 +7,13 @@ settings.json
 contacts_status.json
 sending_logs.txt
 contacts.json
+contacts_page_*.json
+mx_lookup_domains.json
 
 # Personal PDFs & Excel files
 *.pdf
 *.xlsx
 *.csv
+*.log
+
 

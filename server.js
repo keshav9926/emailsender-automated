@@ -15,6 +15,15 @@ const CONTACTS_FILE = path.join(__dirname, 'contacts.json');
 const STATUS_FILE = path.join(__dirname, 'contacts_status.json');
 const SETTINGS_FILE = path.join(__dirname, 'settings.json');
 const LOGS_FILE = path.join(__dirname, 'sending_logs.txt');
+const ENV_FILE = path.join(__dirname, '.env');
+
+function getEnvVar(key) {
+  try {
+    const content = fs.readFileSync(ENV_FILE, 'utf-8');
+    const match = content.match(new RegExp(`^${key}=(.+)$`, 'm'));
+    return match ? match[1].trim() : null;
+  } catch (e) { return null; }
+}
 
 // State in memory
 let queueState = {
@@ -123,8 +132,25 @@ function saveContactsStatus(contacts) {
   }
 }
 
-// SMTP Transporter builder
+// SMTP / OAuth2 Transporter builder
 function createTransporter(smtpSettings) {
+  const clientId = getEnvVar('client_id');
+  const clientSecret = getEnvVar('client_secret');
+  const refreshToken = getEnvVar('GMAIL_REFRESH_TOKEN');
+
+  if (refreshToken && clientId && clientSecret) {
+    return nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: smtpSettings.senderEmail || smtpSettings.user,
+        clientId: clientId,
+        clientSecret: clientSecret,
+        refreshToken: refreshToken
+      }
+    });
+  }
+
   if (!smtpSettings.host || !smtpSettings.user || !smtpSettings.pass) {
     throw new Error('SMTP credentials are not fully configured.');
   }
@@ -225,9 +251,15 @@ async function sendNextEmail() {
   
   try {
     const transporter = createTransporter(settings.smtp);
-    const subject = compileTemplate(settings.template.subject, contact);
-    const body = compileTemplate(settings.template.body, contact);
-    const fromName = settings.smtp.senderName || 'Sender';
+
+    // Template rotation: pick T1 → T2 → T3 → T1 ... based on total sent count
+    const templates = settings.templates || [settings.template];
+    const totalSent = contacts.filter(c => c.status === 'sent').length;
+    const tpl = templates[totalSent % templates.length];
+    
+    const subject = compileTemplate(tpl.subject, contact);
+    const body = compileTemplate(tpl.body, contact);
+    const fromName = settings.smtp.senderName || 'Keshav Kakani';
     const fromEmail = settings.smtp.senderEmail || settings.smtp.user;
     
     // Check if the body looks like HTML

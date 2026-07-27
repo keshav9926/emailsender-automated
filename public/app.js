@@ -183,23 +183,31 @@ document.addEventListener('DOMContentLoaded', () => {
       inputSubject.value = settings.template.subject || '';
       textareaBody.value = settings.template.body || '';
       
-      // Populate Delay settings
-      const randomize = settings.randomizeDelay === true || settings.randomizeDelay === 'true';
-      randomizeDelayCheckbox.checked = randomize;
-      fixedDelayWrapper.style.display = randomize ? 'none' : 'block';
-      randomDelayWrapper.style.display = randomize ? 'block' : 'none';
+      // Populate Delay settings if elements exist
+      if (randomizeDelayCheckbox) {
+        const randomize = settings.randomizeDelay === true || settings.randomizeDelay === 'true';
+        randomizeDelayCheckbox.checked = randomize;
+        if (fixedDelayWrapper) fixedDelayWrapper.style.display = randomize ? 'none' : 'block';
+        if (randomDelayWrapper) randomDelayWrapper.style.display = randomize ? 'block' : 'none';
+      }
       
-      const delaySec = (settings.delay || 10000) / 1000;
-      sliderDelay.value = delaySec;
-      badgeDelay.textContent = `${delaySec}s`;
+      if (sliderDelay) {
+        const delaySec = (settings.delay || 10000) / 1000;
+        sliderDelay.value = delaySec;
+        if (badgeDelay) badgeDelay.textContent = `${delaySec}s`;
+      }
 
-      const minDelaySec = (settings.minDelay || 30000) / 1000;
-      delayMinSlider.value = minDelaySec;
-      const maxDelaySec = (settings.maxDelay || 60000) / 1000;
-      delayMaxSlider.value = maxDelaySec;
-      randomDelayBadge.textContent = `${minDelaySec}s - ${maxDelaySec}s`;
+      if (delayMinSlider && delayMaxSlider) {
+        const minDelaySec = (settings.minDelay || 30000) / 1000;
+        delayMinSlider.value = minDelaySec;
+        const maxDelaySec = (settings.maxDelay || 60000) / 1000;
+        delayMaxSlider.value = maxDelaySec;
+        if (randomDelayBadge) randomDelayBadge.textContent = `${minDelaySec}s - ${maxDelaySec}s`;
+      }
 
-      maxPerDayInput.value = settings.maxPerDay || 200;
+      if (maxPerDayInput) {
+        maxPerDayInput.value = settings.maxPerDay || 200;
+      }
       
       updateLivePreview();
     } catch (e) {
@@ -228,11 +236,11 @@ document.addEventListener('DOMContentLoaded', () => {
     settings.smtp.senderEmail = inputSenderEmail.value.trim();
     settings.smtp.secure = document.querySelector('input[name="smtp-secure"]:checked').value === 'true';
     
-    settings.delay = parseInt(sliderDelay.value) * 1000;
-    settings.randomizeDelay = randomizeDelayCheckbox.checked;
-    settings.minDelay = parseInt(delayMinSlider.value) * 1000;
-    settings.maxDelay = parseInt(delayMaxSlider.value) * 1000;
-    settings.maxPerDay = parseInt(maxPerDayInput.value) || 200;
+    if (sliderDelay) settings.delay = parseInt(sliderDelay.value) * 1000;
+    if (randomizeDelayCheckbox) settings.randomizeDelay = randomizeDelayCheckbox.checked;
+    if (delayMinSlider) settings.minDelay = parseInt(delayMinSlider.value) * 1000;
+    if (delayMaxSlider) settings.maxDelay = parseInt(delayMaxSlider.value) * 1000;
+    if (maxPerDayInput) settings.maxPerDay = parseInt(maxPerDayInput.value) || 35;
     
     try {
       const response = await fetch('/api/settings', {
@@ -352,12 +360,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Reload PDF
-  reimportBtn.addEventListener('click', async () => {
-    if (!confirm('Are you sure you want to reload and re-parse the PDF? This will reset all sending status back to pending.')) {
-      return;
-    }
-    
-    reimportBtn.disabled = true;
+  if (reimportBtn) {
+    reimportBtn.addEventListener('click', async () => {
+      if (!confirm('Are you sure you want to reload and re-parse the PDF? This will reset all sending status back to pending.')) {
+        return;
+      }
+      
+      reimportBtn.disabled = true;
     showToast('Reloading and parsing PDF... Please wait.', 'info');
     
     try {
@@ -376,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Failed to reload PDF: ' + err.message, 'error');
     }
   });
+}
 
   // Search & Filter
   searchInput.addEventListener('input', runFilters);

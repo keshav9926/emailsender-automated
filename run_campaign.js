@@ -6,6 +6,20 @@ const CONTACTS_STATUS_FILE = path.join(__dirname, 'contacts_status.json');
 const SETTINGS_FILE = path.join(__dirname, 'settings.json');
 const LOGS_FILE = path.join(__dirname, 'sending_logs.txt');
 const RESUME_FILE = path.join(__dirname, 'resume (10).pdf');
+const ENV_FILE = path.join(__dirname, '.env');
+
+// ── Load OAuth2 credentials from .env ───────────────────────────────────────
+function getEnvVar(key) {
+  try {
+    const content = fs.readFileSync(ENV_FILE, 'utf-8');
+    const match = content.match(new RegExp(`^${key}=(.+)$`, 'm'));
+    return match ? match[1].trim() : null;
+  } catch (e) { return null; }
+}
+
+const OAUTH_CLIENT_ID     = getEnvVar('client_id');
+const OAUTH_CLIENT_SECRET = getEnvVar('client_secret');
+const OAUTH_REFRESH_TOKEN = getEnvVar('GMAIL_REFRESH_TOKEN');
 
 function logMessage(msg) {
   const time = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -67,7 +81,7 @@ function stripHtmlToText(htmlStr) {
 }
 
 async function runAutomation() {
-  logMessage('🚀 Starting Automated Founder Outreach Campaign from kkakani160@gmail.com...');
+  logMessage('🚀 Starting Automated Founder Outreach Campaign from kakanikeshav0@gmail.com...');
 
   while (true) {
     const settings = getSettings();
@@ -99,19 +113,40 @@ async function runAutomation() {
     logMessage(`📧 [#${contact.sno}] Sending email to ${contact.name} (${contact.email}) at ${contact.company}...`);
 
     try {
-      const transporter = nodemailer.createTransport({
-        host: settings.smtp.host,
-        port: settings.smtp.port,
-        secure: settings.smtp.secure === true || settings.smtp.port === 465,
-        auth: {
-          user: settings.smtp.user,
-          pass: settings.smtp.pass
-        },
-        tls: { rejectUnauthorized: false }
-      });
+      // ── Transport: OAuth2 if refresh token present, else SMTP ──────────────
+      let transportConfig;
+      if (OAUTH_REFRESH_TOKEN && OAUTH_CLIENT_ID && OAUTH_CLIENT_SECRET) {
+        logMessage(`🔑 Using OAuth2 transport for ${settings.smtp.senderEmail}`);
+        transportConfig = {
+          service: 'gmail',
+          auth: {
+            type: 'OAuth2',
+            user: settings.smtp.senderEmail,
+            clientId: OAUTH_CLIENT_ID,
+            clientSecret: OAUTH_CLIENT_SECRET,
+            refreshToken: OAUTH_REFRESH_TOKEN
+          }
+        };
+      } else {
+        logMessage(`🔒 Using SMTP transport for ${settings.smtp.senderEmail}`);
+        transportConfig = {
+          host: settings.smtp.host,
+          port: settings.smtp.port,
+          secure: settings.smtp.secure === true || settings.smtp.port === 465,
+          auth: { user: settings.smtp.user, pass: settings.smtp.pass },
+          tls: { rejectUnauthorized: false }
+        };
+      }
+      const transporter = nodemailer.createTransport(transportConfig);
 
-      const subject = compileTemplate(settings.template.subject, contact);
-      const textBody = compileTemplate(settings.template.body, contact);
+      // ── Template rotation: pick T1 → T2 → T3 → T1 ... based on total sent count ──
+      const templates = settings.templates || [settings.template];
+      const totalSent = contacts.filter(c => c.status === 'sent').length;
+      const tpl = templates[totalSent % templates.length];
+      logMessage(`📝 Using Template ${(totalSent % templates.length) + 1} of ${templates.length}: "${tpl.subject.substring(0, 40)}..."`);
+
+      const subject = compileTemplate(tpl.subject, contact);
+      const textBody = compileTemplate(tpl.body, contact);
 
       const mailOptions = {
         from: `"${settings.smtp.senderName}" <${settings.smtp.senderEmail}>`,
@@ -130,6 +165,7 @@ async function runAutomation() {
       const info = await transporter.sendMail(mailOptions);
       contact.status = 'sent';
       contact.sentAt = new Date().toISOString();
+      contact.templateUsed = (totalSent % templates.length) + 1;
       contact.error = null;
       saveContacts(contacts);
       logMessage(`✅ SUCCESS: Sent to ${contact.email} (ID: ${info.messageId})`);

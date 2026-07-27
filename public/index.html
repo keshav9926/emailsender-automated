@@ -61,12 +61,6 @@
           <h2 id="screen-title">Dashboard</h2>
           <p id="screen-subtitle">Overview of your email outreach campaign</p>
         </div>
-        <div class="header-actions">
-          <button class="btn btn-secondary btn-icon" id="reimport-pdf-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-            <span>Reload PDF Contacts</span>
-          </button>
-        </div>
       </header>
       
       <!-- Notification Toast -->
@@ -142,49 +136,25 @@
               </button>
             </div>
             
-            <div class="delay-slider-container" style="max-width: 480px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <label style="font-size: 14px; font-weight: 500; color: var(--text-secondary);">Randomize Delay (Jitter)</label>
-                <label class="switch">
-                  <input type="checkbox" id="randomize-delay-checkbox">
-                  <span class="slider-toggle"></span>
-                </label>
+            <div class="safety-rules-badge" style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 10px; padding: 16px; min-width: 320px; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 13px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Fixed Deliverability Guardrails
+                </span>
+                <span class="status-badge sent" style="font-size: 11px; font-weight: 600;">LOCKED & ENFORCED</span>
               </div>
-
-              <!-- Fixed Delay Section -->
-              <div id="fixed-delay-wrapper">
-                <div class="slider-header">
-                  <label for="delay-slider">Intelligent Delay Interval</label>
-                  <span class="slider-val-badge" id="delay-value-badge">10s</span>
-                </div>
-                <input type="range" id="delay-slider" min="3" max="120" value="10" class="styled-slider">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary);">
+                <span>Intelligent Delay Interval:</span>
+                <strong style="color: #818cf8;">5 – 10 Minutes (Randomized)</strong>
               </div>
-
-              <!-- Random Delay Section -->
-              <div id="random-delay-wrapper" style="display: none;">
-                <div class="slider-header">
-                  <label>Random Delay Range</label>
-                  <span class="slider-val-badge" id="random-delay-badge">30s - 60s</span>
-                </div>
-                <div style="display: flex; gap: 12px; align-items: center; margin-top: 6px; margin-bottom: 8px;">
-                  <div style="flex: 1;">
-                    <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 2px;">Min Delay (sec)</label>
-                    <input type="range" id="delay-min-slider" min="3" max="120" value="30" class="styled-slider">
-                  </div>
-                  <div style="flex: 1;">
-                    <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 2px;">Max Delay (sec)</label>
-                    <input type="range" id="delay-max-slider" min="5" max="240" value="60" class="styled-slider">
-                  </div>
-                </div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary);">
+                <span>Daily Email Sending Cap:</span>
+                <strong style="color: #818cf8;">35 Mails / Day</strong>
               </div>
-
-              <!-- Daily Cap Section -->
-              <div class="form-group" style="margin-top: 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <label for="max-per-day-input" style="font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-bottom: 0;">Daily Email Cap</label>
-                <input type="number" id="max-per-day-input" class="styled-input" style="width: 100px; padding: 4px 8px; font-size: 13px; text-align: center; height: 32px;" min="1" max="1000" value="200">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-secondary);">
+                <span>Outreach Email Identity:</span>
+                <strong style="color: #34d399;">b24bb1015@iitj.ac.in</strong>
               </div>
-
-              <p class="slider-tip" style="margin-top: 6px; line-height: 1.3;">Tip: Randomized delays (e.g. 30s-60s) and a daily cap under 200 emails mimic organic human behavior, drastically reducing spam blocks.</p>
             </div>
           </div>
         </div>
