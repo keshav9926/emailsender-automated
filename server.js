@@ -230,11 +230,37 @@ async function sendNextEmail() {
   }
   // ─────────────────────────────────────────────────────────────────────────
 
-  // Find the first pending contact
-  const nextContactIndex = contacts.findIndex(c => c.status === 'pending');
-  
+  // Find the first pending contact whose company has NOT been contacted yet
+  const contactedCompanies = new Set(
+    contacts
+      .filter(c => c.status === 'sent' || c.status === 'sending')
+      .map(c => (c.company || '').trim().toLowerCase())
+      .filter(Boolean)
+  );
+
+  let nextContactIndex = -1;
+  let modified = false;
+
+  for (let i = 0; i < contacts.length; i++) {
+    if (contacts[i].status !== 'pending') continue;
+    const comp = (contacts[i].company || '').trim().toLowerCase();
+    if (comp && contactedCompanies.has(comp)) {
+      contacts[i].status = 'skipped';
+      contacts[i].error = `Skipped: Company "${contacts[i].company}" already contacted`;
+      modified = true;
+      logMessage(`⏭ SKIPPED [#${contacts[i].sno}]: ${contacts[i].name} (${contacts[i].company}) — Company already contacted.`);
+    } else {
+      nextContactIndex = i;
+      break;
+    }
+  }
+
+  if (modified) {
+    saveContactsStatus(contacts);
+  }
+
   if (nextContactIndex === -1) {
-    logMessage('All pending emails have been processed!');
+    logMessage('All pending unique-company emails have been processed!');
     queueState.status = 'stopped';
     queueState.activeSending = false;
     return;
@@ -288,8 +314,8 @@ async function sendNextEmail() {
       })
     };
     
-    // Auto-detect and attach resume (10).pdf if it exists in current directory
-    const resumePath = path.join(__dirname, 'resume (10).pdf');
+    // Auto-detect and attach resume (20).pdf if it exists in current directory
+    const resumePath = path.join(__dirname, 'resume (20).pdf');
     if (fs.existsSync(resumePath)) {
       mailOptions.attachments = [
         {
@@ -511,8 +537,8 @@ app.post('/api/test-connection', async (req, res) => {
       text: `Hello!\n\nThis is a test email from your local PDF Email Sender application. Your SMTP settings are successfully configured and verified.\n\nDate: ${new Date().toLocaleString()}`
     };
     
-    // Auto-detect and attach resume (10).pdf if it exists in current directory
-    const resumePath = path.join(__dirname, 'resume (10).pdf');
+    // Auto-detect and attach resume (20).pdf if it exists in current directory
+    const resumePath = path.join(__dirname, 'resume (20).pdf');
     if (fs.existsSync(resumePath)) {
       mailOptions.attachments = [
         {

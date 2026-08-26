@@ -4,16 +4,34 @@ node_modules/
 # Local Configurations & Secrets
 .env
 settings.json
-contacts_status.json
-sending_logs.txt
 contacts.json
+contacts_status.json
+contacts_status_backup_*.json
+sending_logs.txt
 contacts_page_*.json
 mx_lookup_domains.json
+dom_snippets.json
+smtp_verify_results.json
+indian_founders.json
 
-# Personal PDFs & Excel files
+# Saved Sheets & Backups
+saved_sheets/
+backups_pdf/
+
+# Personal PDFs, Screenshots, HTML Dumps & Excel files
 *.pdf
 *.xlsx
 *.csv
 *.log
+*.png
+*.html
+
+# Temporary scrapers & inspect scripts
+inspect_*.py
+frame_inspect.py
+download_*.py
+get_new_excel*.py
+sync_*.py
+test_queue.py
 
 
