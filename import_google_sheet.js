@@ -5,6 +5,21 @@ const path = require('path');
 const CONTACTS_FILE = path.join(__dirname, 'contacts.json');
 const STATUS_FILE = path.join(__dirname, 'contacts_status.json');
 const SETTINGS_FILE = path.join(__dirname, 'settings.json');
+const ENV_FILE = path.join(__dirname, '.env');
+
+function getEnvVar(key) {
+  if (process.env[key]) {
+    return process.env[key].trim();
+  }
+
+  try {
+    const content = fs.readFileSync(ENV_FILE, 'utf-8');
+    const match = content.match(new RegExp(`^${key}=(.+)$`, 'm'));
+    return match ? match[1].trim() : null;
+  } catch (error) {
+    return null;
+  }
+}
 
 // Backups folder
 const BACKUPS_DIR = path.join(__dirname, 'backups_pdf');
@@ -102,8 +117,13 @@ async function importSheet() {
       try {
         const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf-8'));
         
+        const gmailAppPassword = getEnvVar('GMAIL_APP_PASSWORD');
+        if (!gmailAppPassword) {
+          throw new Error('GMAIL_APP_PASSWORD is missing from .env');
+        }
+
         settings.smtp.user = 'kkakani160@gmail.com';
-        settings.smtp.pass = '***REMOVED***';
+        settings.smtp.pass = gmailAppPassword;
         settings.smtp.senderEmail = 'kkakani160@gmail.com';
         settings.template.subject = 'exploring opportunities at {{company_name}}';
         settings.template.body = `Hi {{founder_name}},
